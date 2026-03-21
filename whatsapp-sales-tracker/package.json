@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp-sales-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "rm -f database.sqlite && mocha test/**/*.test.js --timeout 5000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "node-cron": "^3.0.3",
+    "sqlite3": "^6.0.1",
+    "twilio": "^5.13.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.8.2"
+  }
+}
