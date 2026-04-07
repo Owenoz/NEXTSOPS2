@@ -1,0 +1,65 @@
+# EAS Build Ignore File
+# Files and directories to exclude from EAS builds
+
+# Dependencies (will be installed on build server)
+node_modules/
+
+# Documentation (not needed for build)
+*.md
+BUILD_INSTRUCTIONS.md
+DATA_INTEGRATION_GUIDE.md
+FEATURES.md
+FINAL_SUMMARY.md
+FIX_EAS_BUILD.md
+PROJECT_SUMMARY.md
+QUICK_START.md
+README.md
+START_HERE.md
+TESTING_REAL_DATA.md
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Snap directories (causes socket file errors)
+snap/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment (will be set on EAS)
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.expo/
+.expo-shared/
+
+# Testing
+coverage/
+__tests__/
+
+# Misc
+.cache/
+tmp/
+temp/
+
+# Socket files
+*.sock
+*_pipe
+*.socket
+
