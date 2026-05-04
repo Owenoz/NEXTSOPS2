@@ -1,33 +1,34 @@
-# Ignore everything in parent directory
+# Ignore parent directory files
 ../*
 
-# But allow current project files
+# Allow only files inside this folder
 !/*
 
-# Dependencies
+# Standard ignores
 node_modules/
 dist/
 build/
 .next/
 out/
-
-# Environment
-.env
-.env.local
-
-# Logs
+*.env
 *.log
-npm-debug.log*
-
-# OS & IDE
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-
-# Python
 __pycache__/
 *.pyc
-
-# Temporary files
 *.tmp
+
+# Specifically ignore home directory junk
+../.*
+../ALL/
+../BLT/
+../BSSMInvestmentClub/
+../CRANESNATION/
+../Screencasts/
+../Screenshots/
+../comfort-zone/
+../nextshops/
+../oz9/
+../snap/
