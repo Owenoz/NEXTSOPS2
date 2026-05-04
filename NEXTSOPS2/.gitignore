@@ -1,42 +1,34 @@
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
-
-# Testing
-coverage/
-*.log
-
-# Production
-build/
 dist/
+build/
 .next/
 out/
 
-# Environment
+# Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS
+.DS_Store
+Thumbs.db
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Misc
-*.pem
-.vercel
-.turbo
+# Python
+__pycache__/
+*.pyc
