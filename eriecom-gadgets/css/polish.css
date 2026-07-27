@@ -1,0 +1,238 @@
+/* =============================================
+   ERIECOM GADGETS — FINAL POLISH & EXTRAS
+   ============================================= */
+
+/* ---- WHATSAPP FLOAT BUTTON ---- */
+.whatsapp-float {
+  position: fixed;
+  bottom: 88px;
+  right: 28px;
+  width: 52px; height: 52px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  color: #fff;
+  z-index: 998;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.12) translateY(-3px);
+  box-shadow: 0 12px 36px rgba(37,211,102,0.6);
+}
+.whatsapp-float::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.4);
+  animation: waPulse 2s ease-in-out infinite;
+}
+@keyframes waPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.25); opacity: 0; }
+}
+
+/* ---- PAGE LOADER ---- */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.page-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+.loader-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.loader-bar {
+  width: 200px; height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.loader-bar-fill {
+  height: 100%;
+  background: var(--gradient);
+  border-radius: 3px;
+  animation: loadBar 1.6s ease-in-out infinite;
+}
+@keyframes loadBar {
+  0% { width: 0%; margin-left: 0; }
+  50% { width: 70%; margin-left: 0; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+/* ---- SMOOTH SELECTION HIGHLIGHT ---- */
+::selection {
+  background: rgba(108,59,255,0.35);
+  color: #fff;
+}
+
+/* ---- FOCUS RING ---- */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- GLOBAL TRANSITIONS ---- */
+.product-card,
+.cat-card,
+.why-card,
+.deal-small,
+.testimonial-card,
+.stat-card,
+.checkout-form-card {
+  will-change: transform;
+}
+
+/* ---- IMAGE DRAG PROTECTION ---- */
+img { -webkit-user-drag: none; user-select: none; }
+
+/* ---- PRICE CURRENCY FORMATTING ---- */
+.price-current,
+.prod-price-current,
+.total-amount,
+.cart-item-price,
+.table-price {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- ACTIVE NAV LINK INDICATOR ---- */
+.nav-link.active {
+  color: #fff;
+  background: rgba(108,59,255,0.12);
+}
+
+/* ---- ADMIN SIDEBAR OVERLAY (mobile) ---- */
+.admin-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 499;
+}
+.admin-overlay.show { display: block; }
+
+/* ---- PRODUCT CARD SKELETON WHILE LOADING ---- */
+.product-skeleton {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.product-skeleton .skel-img {
+  height: 220px;
+  width: 100%;
+}
+.product-skeleton .skel-line {
+  margin: 12px 16px;
+  border-radius: 4px;
+  height: 12px;
+}
+.product-skeleton .skel-line.short {
+  width: 50%;
+  height: 10px;
+}
+
+/* ---- CATEGORY LINK HOVER FIX ---- */
+.cat-card { text-decoration: none; display: block; }
+
+/* ---- SMOOTH ANCHOR OFFSET (sticky nav) ---- */
+[id] { scroll-margin-top: 90px; }
+
+/* ---- CART BADGE DISPLAY FIX ---- */
+.cart-count:empty { display: none; }
+
+/* ---- ADMIN NAV LINK CURSOR ---- */
+.admin-nav-link { cursor: pointer; }
+
+/* ---- TOOLTIP ---- */
+[title] { position: relative; }
+
+/* ---- PRINT STYLES ---- */
+@media print {
+  .navbar, .announcement-bar, .footer, .back-to-top,
+  .whatsapp-float, .mobile-menu { display: none; }
+  body { background: #fff; color: #000; }
+}
+
+/* ---- EXTRA MOBILE TWEAKS ---- */
+@media (max-width: 400px) {
+  .nav-container { padding: 0 14px; }
+  .container { padding: 0 14px; }
+  .admin-content { padding: 16px; }
+  .login-card { padding: 24px 20px; }
+  .hero-title { font-size: 28px; }
+}
+
+/* ---- CUSTOM SCROLLBAR FOR SIDEBARS ---- */
+.admin-sidebar-nav::-webkit-scrollbar,
+.admin-form-card::-webkit-scrollbar,
+.shop-sidebar::-webkit-scrollbar { width: 4px; }
+.admin-sidebar-nav::-webkit-scrollbar-track,
+.admin-form-card::-webkit-scrollbar-track,
+.shop-sidebar::-webkit-scrollbar-track { background: transparent; }
+.admin-sidebar-nav::-webkit-scrollbar-thumb,
+.admin-form-card::-webkit-scrollbar-thumb,
+.shop-sidebar::-webkit-scrollbar-thumb { background: rgba(108,59,255,0.3); border-radius: 2px; }
+
+/* ---- GLASS CARD VARIANT ---- */
+.glass-card {
+  background: rgba(22,22,31,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* ---- CHIP FILTER ANIMATION ---- */
+.filter-chip {
+  animation: pageEnter 0.2s ease;
+}
+
+/* ---- TABLE ROW HOVER ---- */
+.products-table tr { transition: background var(--transition); }
+
+/* ---- STAR COLORS ---- */
+.stars-small .fa-star,
+.stars-small .fa-star-half-alt { color: #f59e0b; }
+.stars-small .fa-star.far { color: rgba(245,158,11,0.3); }
+
+/* ---- DEAL CARD HOVER GLOW ---- */
+.deal-main:hover {
+  box-shadow: 0 24px 80px rgba(108,59,255,0.2);
+}
+
+/* ---- NEWSLETTER SUCCESS ---- */
+.newsletter-form.success input,
+.newsletter-form.success button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ---- CTA SECTION BOTTOM PAD ---- */
+.hero { padding-bottom: 80px; }
+
+/* ---- FOOTER LINK TRANSITION ---- */
+.footer-col a {
+  transition: color var(--transition), padding-left var(--transition);
+}
+
+/* ---- RESPONSIVE FONT SCALING ---- */
+@media (max-width: 360px) {
+  html { font-size: 14px; }
+}

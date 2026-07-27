@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Eriecom Gadgets</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="../css/polish.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="admin-body">
+
+<!-- MOBILE SIDEBAR OVERLAY -->
+<div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="admin-dashboard">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-sidebar-logo">
+      <a href="../index.html" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+        <div class="logo-text">
+          <span class="logo-main">ERIECOM</span>
+          <span class="logo-sub">GADGETS</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="admin-sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="admin-nav-link active" id="nav-overview" onclick="showPanel('overview')">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Overview</span>
+      </a>
+      <a class="admin-nav-link" id="nav-products" onclick="showPanel('products')">
+        <i class="fas fa-box-open"></i>
+        <span>Products</span>
+        <span class="nav-badge" id="sidebarProdCount">0</span>
+      </a>
+
+      <div class="nav-section-label">Store</div>
+      <a class="admin-nav-link" id="nav-categories" onclick="showPanel('categories')">
+        <i class="fas fa-th-large"></i>
+        <span>Categories</span>
+      </a>
+      <a class="admin-nav-link" id="nav-inventory" onclick="showPanel('inventory')">
+        <i class="fas fa-warehouse"></i>
+        <span>Inventory</span>
+      </a>
+      <a class="admin-nav-link" id="nav-orders" onclick="showPanel('orders')">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Orders</span>
+        <span class="nav-badge nav-badge-accent">Soon</span>
+      </a>
+
+      <div class="nav-section-label">Links</div>
+      <a class="admin-nav-link" href="../index.html" target="_blank">
+        <i class="fas fa-store"></i>
+        <span>View Store</span>
+        <i class="fas fa-external-link-alt" style="font-size:10px;margin-left:auto;opacity:0.5"></i>
+      </a>
+      <a class="admin-nav-link" href="../pages/shop.html" target="_blank">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Shop Page</span>
+        <i class="fas fa-external-link-alt" style="font-size:10px;margin-left:auto;opacity:0.5"></i>
+      </a>
+    </nav>
+
+    <div class="admin-sidebar-footer">
+      <div class="admin-user-row">
+        <div class="admin-avatar" id="adminAvatarLetters">AD</div>
+        <div class="admin-user-info">
+          <strong id="adminDisplayName">Admin User</strong>
+          <span id="adminDisplayRole" class="role-online"><i class="fas fa-circle" style="font-size:6px"></i> Online</span>
+        </div>
+        <button class="logout-btn" onclick="logoutAdmin()" title="Sign Out">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="admin-main" id="adminMain">
+
+    <!-- TOPBAR -->
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-btn sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="topbar-breadcrumb">
+          <span class="topbar-store-name">Eriecom Gadgets</span>
+          <i class="fas fa-chevron-right topbar-sep"></i>
+          <span class="topbar-title" id="topbarTitle">Overview</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="topbar-search-wrap">
+          <div class="topbar-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search products..." id="topbarSearch" autocomplete="off" />
+            <kbd>⌘K</kbd>
+          </div>
+        </div>
+        <button class="topbar-btn" onclick="showPanel('products')" title="All Products">
+          <i class="fas fa-list"></i>
+        </button>
+        <button class="topbar-add-btn" onclick="openProductForm(null)">
+          <i class="fas fa-plus"></i>
+          <span>Add Product</span>
+        </button>
+        <a href="../index.html" target="_blank" class="topbar-btn" title="View Live Store">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="admin-content" id="adminContent">
+      <div class="admin-loading">
+        <div class="loader"></div>
+        <p>Loading dashboard...</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ADD / EDIT PRODUCT MODAL ===== -->
+<div class="admin-form-overlay" id="productFormOverlay" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+  <div class="admin-form-card" id="productFormCard">
+    <div class="admin-form-header">
+      <h3 id="formTitle"><i class="fas fa-plus-circle"></i> Add New Product</h3>
+      <button class="close-form-btn" onclick="closeProductForm()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form id="productForm" novalidate>
+      <input type="hidden" id="editProductId" />
+
+      <div class="form-section-divider">Basic Information</div>
+      <div class="admin-form-grid">
+        <div class="admin-form-group full">
+          <label class="admin-form-label">Product Name <span class="req">*</span></label>
+          <input type="text" class="admin-form-input" id="pName"
+            placeholder="e.g. Samsung Galaxy S24 Ultra" required />
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Category <span class="req">*</span></label>
+          <select class="admin-form-input" id="pCategory" required>
+            <option value="">— Select category —</option>
+            <option value="phones">📱 Smartphones</option>
+            <option value="laptops">💻 Laptops</option>
+            <option value="audio">🎧 Audio</option>
+            <option value="tablets">📟 Tablets</option>
+            <option value="gaming">🎮 Gaming</option>
+            <option value="accessories">🔌 Accessories</option>
+          </select>
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Promo Badge</label>
+          <select class="admin-form-input" id="pBadge">
+            <option value="">None</option>
+            <option value="new">🆕 New</option>
+            <option value="sale">🏷️ Sale</option>
+            <option value="hot">🔥 Hot</option>
+            <option value="featured">⭐ Featured</option>
+          </select>
+        </div>
+        <div class="admin-form-group full">
+          <label class="admin-form-label">Description <span class="req">*</span></label>
+          <textarea class="admin-form-input admin-form-textarea" id="pDesc"
+            placeholder="Brief product description highlighting key specs and features..." required></textarea>
+        </div>
+      </div>
+
+      <div class="form-section-divider">Pricing & Stock</div>
+      <div class="admin-form-grid">
+        <div class="admin-form-group">
+          <label class="admin-form-label">Sale Price (UGX) <span class="req">*</span></label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">UGX</span>
+            <input type="number" class="admin-form-input with-prefix" id="pPrice"
+              placeholder="e.g. 4800000" min="0" required />
+          </div>
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Original Price (UGX) <span class="optional">optional</span></label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">UGX</span>
+            <input type="number" class="admin-form-input with-prefix" id="pOldPrice"
+              placeholder="Leave blank if no discount" min="0" />
+          </div>
+          <span class="field-hint" id="discountHint"></span>
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Stock Quantity <span class="req">*</span></label>
+          <input type="number" class="admin-form-input" id="pStock"
+            placeholder="e.g. 25" min="0" required />
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Rating <span class="optional">1 – 5</span></label>
+          <input type="number" class="admin-form-input" id="pRating"
+            placeholder="e.g. 4.5" min="1" max="5" step="0.1" />
+        </div>
+        <div class="admin-form-group">
+          <label class="admin-form-label">Review Count</label>
+          <input type="number" class="admin-form-input" id="pReviews"
+            placeholder="e.g. 124" min="0" />
+        </div>
+      </div>
+
+      <div class="form-section-divider">Media</div>
+      <div class="admin-form-group">
+        <label class="admin-form-label">Image URL <span class="req">*</span></label>
+        <input type="url" class="admin-form-input" id="pImage"
+          placeholder="https://images.unsplash.com/photo-..." required
+          oninput="previewImage(this.value)" />
+        <div class="img-preview-wrap" id="imgPreviewWrap" style="display:none">
+          <img id="imgPreview" class="img-preview" alt="Product preview" />
+          <span class="img-preview-label"><i class="fas fa-check-circle"></i> Image loaded</span>
+        </div>
+        <p class="field-hint" style="margin-top:6px">
+          Use <a href="https://unsplash.com" target="_blank" style="color:var(--primary-light)">Unsplash</a> or
+          <a href="https://images.google.com" target="_blank" style="color:var(--primary-light)">Google Images</a> for free product photos.
+        </p>
+      </div>
+
+      <div class="form-section-divider">Visibility</div>
+      <div class="admin-checkbox-row">
+        <label class="admin-checkbox-card" id="chkFeatured">
+          <input type="checkbox" id="pFeatured" />
+          <div class="checkbox-card-content">
+            <i class="fas fa-star"></i>
+            <span>Featured</span>
+            <small>Shown on homepage</small>
+          </div>
+        </label>
+        <label class="admin-checkbox-card" id="chkTrending">
+          <input type="checkbox" id="pTrending" />
+          <div class="checkbox-card-content">
+            <i class="fas fa-fire"></i>
+            <span>Trending</span>
+            <small>Shown in trending section</small>
+          </div>
+        </label>
+      </div>
+
+      <div class="admin-form-actions">
+        <button type="submit" class="btn-save" id="formSaveBtn">
+          <i class="fas fa-save"></i> Save Product
+        </button>
+        <button type="button" class="btn-cancel" onclick="closeProductForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== DELETE CONFIRM MODAL ===== -->
+<div class="admin-form-overlay" id="deleteConfirmOverlay" role="dialog" aria-modal="true">
+  <div class="admin-form-card delete-confirm-card">
+    <div class="delete-icon-wrap">
+      <i class="fas fa-trash-alt"></i>
+    </div>
+    <h3>Delete Product?</h3>
+    <p id="deleteProductName">This action cannot be undone.</p>
+    <div class="delete-actions">
+      <button class="btn-delete-confirm" onclick="confirmDelete()">
+        <i class="fas fa-trash"></i> Yes, Delete
+      </button>
+      <button class="btn-cancel" onclick="closeDeleteConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/admin-auth.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

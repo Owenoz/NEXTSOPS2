@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eriecom Gadgets | Uganda's #1 Electronics Store</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/polish.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="announcement-inner">
+    <span><i class="fas fa-truck"></i> Free delivery on orders above UGX 150,000 in Kampala</span>
+    <span><i class="fas fa-shield-alt"></i> 12-Month Warranty on All Products</span>
+    <span><i class="fas fa-headset"></i> 24/7 Customer Support: +256 700 123 456</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+      <div class="logo-text">
+        <span class="logo-main">ERIECOM</span>
+        <span class="logo-sub">GADGETS</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="pages/shop.html" class="nav-link">Shop</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-link">Categories <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
+          <a href="pages/shop.html?cat=phones"><i class="fas fa-mobile-alt"></i> Smartphones</a>
+          <a href="pages/shop.html?cat=laptops"><i class="fas fa-laptop"></i> Laptops</a>
+          <a href="pages/shop.html?cat=audio"><i class="fas fa-headphones"></i> Audio</a>
+          <a href="pages/shop.html?cat=tablets"><i class="fas fa-tablet-alt"></i> Tablets</a>
+          <a href="pages/shop.html?cat=accessories"><i class="fas fa-plug"></i> Accessories</a>
+          <a href="pages/shop.html?cat=gaming"><i class="fas fa-gamepad"></i> Gaming</a>
+        </div>
+      </div>
+      <a href="#deals" class="nav-link">Deals</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="searchToggle"><i class="fas fa-search"></i></button>
+      <a href="pages/cart.html" class="nav-btn cart-btn">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <a href="admin/login.html" class="nav-btn admin-btn" title="Admin"><i class="fas fa-user-shield"></i></a>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <input type="text" placeholder="Search for phones, laptops, accessories..." id="searchInput" />
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
+      <button class="close-search" id="closeSearch"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="pages/shop.html"><i class="fas fa-store"></i> Shop</a>
+  <a href="pages/shop.html?cat=phones"><i class="fas fa-mobile-alt"></i> Smartphones</a>
+  <a href="pages/shop.html?cat=laptops"><i class="fas fa-laptop"></i> Laptops</a>
+  <a href="pages/shop.html?cat=audio"><i class="fas fa-headphones"></i> Audio</a>
+  <a href="pages/shop.html?cat=accessories"><i class="fas fa-plug"></i> Accessories</a>
+  <a href="#deals"><i class="fas fa-tag"></i> Deals</a>
+  <a href="pages/cart.html"><i class="fas fa-shopping-bag"></i> Cart</a>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-bg-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-star"></i> Uganda's Most Trusted Tech Store</div>
+    <h1 class="hero-title">
+      Next-Gen <span class="gradient-text">Electronics</span><br/>
+      Delivered to Your Door
+    </h1>
+    <p class="hero-desc">Discover the latest smartphones, laptops, audio gear and accessories. Genuine products, unbeatable prices — right here in Uganda.</p>
+    <div class="hero-actions">
+      <a href="pages/shop.html" class="btn-primary"><i class="fas fa-bolt"></i> Shop Now</a>
+      <a href="#deals" class="btn-secondary">View Deals</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" data-count="5000">0</span><span>+ Products</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num" data-count="12000">0</span><span>+ Customers</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num" data-count="99">0</span><span>% Satisfaction</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-phone-mockup">
+      <div class="phone-glow"></div>
+      <div class="floating-card card-1"><i class="fas fa-shield-alt"></i> Warranty Included</div>
+      <div class="floating-card card-2"><i class="fas fa-truck"></i> Fast Delivery</div>
+      <div class="floating-card card-3"><i class="fas fa-tag"></i> Best Prices</div>
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80" alt="Latest Smartphone" class="hero-img" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS STRIP -->
+<section class="brands-strip">
+  <div class="brands-label">Authorized Dealer For</div>
+  <div class="brands-scroll">
+    <div class="brands-track">
+      <span>Apple</span><span>Samsung</span><span>Xiaomi</span><span>HP</span>
+      <span>Dell</span><span>Sony</span><span>JBL</span><span>Lenovo</span>
+      <span>Huawei</span><span>Oppo</span><span>Infinix</span><span>Tecno</span>
+      <span>Apple</span><span>Samsung</span><span>Xiaomi</span><span>HP</span>
+      <span>Dell</span><span>Sony</span><span>JBL</span><span>Lenovo</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY CARDS -->
+<section class="categories section-pad">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Browse By</div>
+      <h2 class="section-title">Shop Categories</h2>
+    </div>
+    <div class="category-grid">
+      <a href="pages/shop.html?cat=phones" class="cat-card cat-phones" data-aos="fade-up" data-aos-delay="0">
+        <div class="cat-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3>Smartphones</h3>
+        <p>Latest flagship & budget phones</p>
+        <span class="cat-count">200+ Items</span>
+      </a>
+      <a href="pages/shop.html?cat=laptops" class="cat-card cat-laptops" data-aos="fade-up" data-aos-delay="100">
+        <div class="cat-icon"><i class="fas fa-laptop"></i></div>
+        <h3>Laptops</h3>
+        <p>Work, game, and create</p>
+        <span class="cat-count">150+ Items</span>
+      </a>
+      <a href="pages/shop.html?cat=audio" class="cat-card cat-audio" data-aos="fade-up" data-aos-delay="200">
+        <div class="cat-icon"><i class="fas fa-headphones-alt"></i></div>
+        <h3>Audio</h3>
+        <p>Earbuds, speakers & headphones</p>
+        <span class="cat-count">180+ Items</span>
+      </a>
+      <a href="pages/shop.html?cat=tablets" class="cat-card cat-tablets" data-aos="fade-up" data-aos-delay="300">
+        <div class="cat-icon"><i class="fas fa-tablet-alt"></i></div>
+        <h3>Tablets</h3>
+        <p>iPads, Android slates & more</p>
+        <span class="cat-count">80+ Items</span>
+      </a>
+      <a href="pages/shop.html?cat=gaming" class="cat-card cat-gaming" data-aos="fade-up" data-aos-delay="400">
+        <div class="cat-icon"><i class="fas fa-gamepad"></i></div>
+        <h3>Gaming</h3>
+        <p>Consoles, controllers & gear</p>
+        <span class="cat-count">120+ Items</span>
+      </a>
+      <a href="pages/shop.html?cat=accessories" class="cat-card cat-accessories" data-aos="fade-up" data-aos-delay="500">
+        <div class="cat-icon"><i class="fas fa-plug"></i></div>
+        <h3>Accessories</h3>
+        <p>Chargers, cables & cases</p>
+        <span class="cat-count">500+ Items</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured section-pad" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Hand-Picked</div>
+      <h2 class="section-title">Featured Products</h2>
+      <a href="pages/shop.html" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="products-grid" id="featuredProducts"></div>
+  </div>
+</section>
+
+<!-- DEALS BANNER -->
+<section class="deals-banner section-pad" id="deals">
+  <div class="container">
+    <div class="deals-grid">
+      <div class="deal-card deal-main">
+        <div class="deal-badge">HOT DEAL</div>
+        <p class="deal-sub">Limited Time Offer</p>
+        <h2>iPhone 15 Pro Max</h2>
+        <p class="deal-desc">Up to 20% off on selected Apple products this week only</p>
+        <div class="countdown" id="countdown">
+          <div class="time-block"><span id="hours">00</span><small>Hours</small></div>
+          <div class="time-block"><span id="mins">00</span><small>Mins</small></div>
+          <div class="time-block"><span id="secs">00</span><small>Secs</small></div>
+        </div>
+        <a href="pages/shop.html" class="btn-primary">Grab the Deal</a>
+      </div>
+      <div class="deal-side">
+        <div class="deal-small">
+          <div class="deal-small-img"><i class="fas fa-laptop"></i></div>
+          <div>
+            <span class="badge-new">NEW IN</span>
+            <h4>Gaming Laptops</h4>
+            <p>RTX 4060 starting UGX 3.2M</p>
+            <a href="pages/shop.html?cat=laptops">Shop Now →</a>
+          </div>
+        </div>
+        <div class="deal-small">
+          <div class="deal-small-img accent"><i class="fas fa-headphones-alt"></i></div>
+          <div>
+            <span class="badge-sale">SALE</span>
+            <h4>Sony WH-1000XM5</h4>
+            <p>Noise-cancelling headphones 15% off</p>
+            <a href="pages/shop.html?cat=audio">Shop Now →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-us section-pad">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Why Eriecom</div>
+      <h2 class="section-title">Shopping With Confidence</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-aos="zoom-in">
+        <div class="why-icon"><i class="fas fa-certificate"></i></div>
+        <h3>100% Genuine</h3>
+        <p>All products sourced directly from authorized distributors with full authenticity guarantee.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="why-icon"><i class="fas fa-truck-fast"></i></div>
+        <h3>Fast Delivery</h3>
+        <p>Same-day delivery in Kampala. Nationwide delivery within 3 business days anywhere in Uganda.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="why-icon"><i class="fas fa-tools"></i></div>
+        <h3>Expert Support</h3>
+        <p>Our certified tech team is available 24/7 for setup, troubleshooting, and repairs.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="why-icon"><i class="fas fa-rotate-left"></i></div>
+        <h3>Easy Returns</h3>
+        <p>14-day hassle-free returns on all purchases. No questions asked policy for defective items.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDING PRODUCTS -->
+<section class="trending section-pad">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🔥 Trending</div>
+      <h2 class="section-title">Most Popular Right Now</h2>
+      <a href="pages/shop.html" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="products-grid" id="trendingProducts"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials section-pad" id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Reviews</div>
+      <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Got my Samsung Galaxy S24 Ultra delivered in just 2 hours! Completely genuine with all accessories. Eriecom is the real deal in Uganda."</p>
+        <div class="reviewer"><div class="avatar">AK</div><div><strong>Aisha Kamau</strong><span>Kampala, Uganda</span></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Best place to buy laptops in Uganda. I've bought 3 laptops here for my office. Prices are fair and the warranty is actually honoured."</p>
+        <div class="reviewer"><div class="avatar">JO</div><div><strong>James Okello</strong><span>Gulu, Uganda</span></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+        <p>"Customer service is top notch. They helped me pick the perfect earbuds for my budget. My JBL Tune 760NC arrived perfectly packaged."</p>
+        <div class="reviewer"><div class="avatar">PN</div><div><strong>Patricia Nakato</strong><span>Entebbe, Uganda</span></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Ordered an HP EliteBook for work. Arrived the next morning via their courier. Great pricing and the team was very professional."</p>
+        <div class="reviewer"><div class="avatar">DM</div><div><strong>David Mugisha</strong><span>Mbarara, Uganda</span></div></div>
+      </div>
+    </div>
+    <div class="testimonial-nav">
+      <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
+      <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2>Stay in the Loop</h2>
+        <p>Subscribe for exclusive deals, new arrivals and tech news — straight to your inbox.</p>
+      </div>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-primary">Subscribe <i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-strip section-pad" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <h4>Visit Our Store</h4>
+          <p>Kampala Road, Opp. Game Store<br/>Kampala, Uganda</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+        <div>
+          <h4>Call Us</h4>
+          <p>+256 700 123 456<br/>+256 752 987 654</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <h4>Email Us</h4>
+          <p>info@eriecomgadgets.ug<br/>support@eriecomgadgets.ug</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+        <div>
+          <h4>Opening Hours</h4>
+          <p>Mon – Sat: 8:00am – 8:00pm<br/>Sunday: 10:00am – 6:00pm</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+          <div class="logo-text">
+            <span class="logo-main">ERIECOM</span>
+            <span class="logo-sub">GADGETS</span>
+          </div>
+        </div>
+        <p>Uganda's leading electronics retailer. Bringing you the world's best tech with local expertise and service you can trust.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="pages/shop.html">Shop</a>
+        <a href="#deals">Deals</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <a href="pages/shop.html?cat=phones">Smartphones</a>
+        <a href="pages/shop.html?cat=laptops">Laptops</a>
+        <a href="pages/shop.html?cat=audio">Audio</a>
+        <a href="pages/shop.html?cat=tablets">Tablets</a>
+        <a href="pages/shop.html?cat=gaming">Gaming</a>
+        <a href="pages/shop.html?cat=accessories">Accessories</a>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <a href="#">Track Your Order</a>
+        <a href="#">Returns & Refunds</a>
+        <a href="#">Warranty Policy</a>
+        <a href="#">Delivery Info</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Eriecom Gadgets. All rights reserved. | Made with ❤ in Uganda</p>
+      <div class="payment-icons">
+        <span><i class="fas fa-mobile-alt"></i> MTN MoMo</span>
+        <span><i class="fas fa-mobile-alt"></i> Airtel Money</span>
+        <span><i class="fab fa-cc-visa"></i> Visa</span>
+        <span><i class="fab fa-cc-mastercard"></i> Mastercard</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/256700123456?text=Hello%20Eriecom%20Gadgets%2C%20I%20would%20like%20to%20order%20a%20product." class="whatsapp-float" target="_blank" title="Chat on WhatsApp" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast"></div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">
+    <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+    <div class="logo-text"><span class="logo-main">ERIECOM</span><span class="logo-sub">GADGETS</span></div>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

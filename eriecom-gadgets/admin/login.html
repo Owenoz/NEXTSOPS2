@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Eriecom Gadgets</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="../css/polish.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="admin-body">
+
+<div class="admin-login-bg">
+  <div class="login-particles" id="loginParticles"></div>
+
+  <div class="login-wrapper">
+
+    <!-- LOGIN CARD -->
+    <div class="login-card">
+      <div class="login-logo">
+        <a href="../index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+          <div class="logo-text">
+            <span class="logo-main">ERIECOM</span>
+            <span class="logo-sub">GADGETS</span>
+          </div>
+        </a>
+        <span class="login-badge">Admin</span>
+      </div>
+
+      <div class="login-header">
+        <div class="login-icon-wrap">
+          <i class="fas fa-user-shield"></i>
+          <div class="login-icon-ring"></div>
+        </div>
+        <h1>Admin Portal</h1>
+        <p>Sign in to manage your store, products and inventory</p>
+      </div>
+
+      <form class="login-form" id="loginForm" autocomplete="off" novalidate>
+        <div class="login-field" id="fieldUsername">
+          <label for="adminUsername"><i class="fas fa-user"></i> Username</label>
+          <div class="input-wrap">
+            <input type="text" id="adminUsername" placeholder="Enter admin username"
+              autocomplete="off" spellcheck="false" required />
+          </div>
+          <span class="field-error" id="errUsername"></span>
+        </div>
+
+        <div class="login-field" id="fieldPassword">
+          <label for="adminPassword"><i class="fas fa-lock"></i> Password</label>
+          <div class="input-wrap">
+            <input type="password" id="adminPassword" placeholder="Enter admin password"
+              autocomplete="off" required />
+            <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="field-error" id="errPassword"></span>
+        </div>
+
+        <div class="login-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe" />
+            <span class="checkbox-custom"></span>
+            <span>Stay signed in for 7 days</span>
+          </label>
+        </div>
+
+        <div class="login-error" id="loginError">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="loginErrorText">Invalid credentials</span>
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span id="loginBtnText"><i class="fas fa-sign-in-alt"></i> Sign In to Dashboard</span>
+          <span id="loginBtnLoader" class="login-loader-wrap" style="display:none;">
+            <span class="loader"></span>
+            <span>Verifying...</span>
+          </span>
+        </button>
+      </form>
+
+      <div class="login-divider"><span>Demo credentials</span></div>
+
+      <div class="login-demo-creds">
+        <div class="cred-row" onclick="fillCreds('admin','eriecom2025')">
+          <div class="cred-icon"><i class="fas fa-crown"></i></div>
+          <div>
+            <strong>Super Admin</strong>
+            <span>admin / eriecom2025</span>
+          </div>
+          <i class="fas fa-arrow-right cred-arrow"></i>
+        </div>
+        <div class="cred-row" onclick="fillCreds('eriecom','gadgets2025')">
+          <div class="cred-icon" style="background:rgba(0,212,170,0.1);color:var(--accent2)"><i class="fas fa-user-tie"></i></div>
+          <div>
+            <strong>Store Manager</strong>
+            <span>eriecom / gadgets2025</span>
+          </div>
+          <i class="fas fa-arrow-right cred-arrow"></i>
+        </div>
+      </div>
+
+      <a href="../index.html" class="login-back">
+        <i class="fas fa-arrow-left"></i> Back to Store
+      </a>
+    </div>
+
+    <!-- FEATURES PANEL -->
+    <div class="login-features">
+      <div class="features-top">
+        <span class="features-badge"><i class="fas fa-shield-alt"></i> Secured Access</span>
+        <h3>Dashboard Features</h3>
+        <p>Everything you need to run Eriecom Gadgets efficiently</p>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-box"></i></div>
+          <div><strong>Product Management</strong><span>Add, edit & remove products instantly</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background:rgba(0,212,170,0.1);color:var(--accent2)"><i class="fas fa-chart-line"></i></div>
+          <div><strong>Inventory Tracking</strong><span>Monitor stock levels & alerts</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background:rgba(255,107,53,0.1);color:var(--accent)"><i class="fas fa-tags"></i></div>
+          <div><strong>Promotions</strong><span>Set badges, discounts & featured items</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background:rgba(245,158,11,0.1);color:var(--warning)"><i class="fas fa-layer-group"></i></div>
+          <div><strong>Category Overview</strong><span>Manage product categories</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background:rgba(59,130,246,0.1);color:#60a5fa"><i class="fas fa-store"></i></div>
+          <div><strong>Live Store Preview</strong><span>See changes reflect instantly</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background:rgba(16,185,129,0.1);color:var(--success)"><i class="fas fa-user-shield"></i></div>
+          <div><strong>Secure Sessions</strong><span>Auto-expiry with remember-me</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/admin-auth.js"></script>
+<script>
+  // Quick-fill demo creds
+  function fillCreds(u, p) {
+    document.getElementById('adminUsername').value = u;
+    document.getElementById('adminPassword').value = p;
+    document.getElementById('adminUsername').closest('.login-field').classList.add('filled');
+    document.getElementById('adminPassword').closest('.login-field').classList.add('filled');
+    showToast('<i class="fas fa-bolt" style="color:var(--primary-light)"></i> Credentials filled — click Sign In', '');
+  }
+</script>
+</body>
+</html>
