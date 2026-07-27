@@ -3,8 +3,11 @@
    ============================================= */
 document.addEventListener('DOMContentLoaded', () => {
 
-  const DELIVERY_FEE = 10000;
-  const KAMPALA_FREE_THRESHOLD = 150000;
+  const s = loadSettings();
+  const DELIVERY_FEE = s.deliveryFee || 10000;
+  const KAMPALA_FREE_THRESHOLD = s.freeDeliveryThreshold || 150000;
+  const COUPON_CODE = (s.couponCode || 'ERIECOM10').toUpperCase();
+  const COUPON_DISCOUNT_PCT = s.couponDiscount || 10;
   let couponApplied = false;
   let couponDiscount = 0;
   let currentView = 'cart'; // 'cart' | 'checkout' | 'success'
@@ -74,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="order-summary">
           <div class="summary-title"><i class="fas fa-receipt" style="color:var(--primary-light)"></i> Order Summary</div>
           <div class="summary-row"><span>Subtotal (${cart.reduce((s,i) => s+i.qty, 0)} items)</span><span>${formatUGX(subtotal)}</span></div>
-          ${couponApplied ? `<div class="summary-row discount"><span>Coupon (ERIECOM10)</span><span>-${formatUGX(discount)}</span></div>` : ''}
+          ${couponApplied ? `<div class="summary-row discount"><span>Coupon (${COUPON_CODE})</span><span>-${formatUGX(discount)}</span></div>` : ''}
           <div class="summary-row">
             <span>Delivery</span>
             <span>${delivery === 0 ? '<span style="color:var(--success)">FREE</span>' : formatUGX(delivery)}</span>
@@ -278,11 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.applyCoupon = () => {
     const code = document.getElementById('couponInput')?.value.trim().toUpperCase();
-    if (code === 'ERIECOM10') {
+    if (code === COUPON_CODE) {
       couponApplied = true;
-      couponDiscount = Math.round(getCartTotal() * 0.1);
+      couponDiscount = Math.round(getCartTotal() * (COUPON_DISCOUNT_PCT / 100));
       renderCart();
-      showToast('<i class="fas fa-tag" style="color:var(--success)"></i> Coupon applied! 10% off your order.', 'success');
+      showToast(`<i class="fas fa-tag" style="color:var(--success)"></i> Coupon applied! ${COUPON_DISCOUNT_PCT}% off your order.`, 'success');
     } else {
       showToast('<i class="fas fa-times-circle" style="color:var(--error)"></i> Invalid coupon code.', 'error');
     }

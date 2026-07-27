@@ -112,6 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
     trendingEl.innerHTML = trending.map((p, i) => createProductCard(p, i)).join('');
   }
 
+  /* ---- DYNAMIC HERO CONTENT FROM SETTINGS ---- */
+  const settings = loadSettings();
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle && settings.heroTitle) {
+    const words = settings.heroTitle.split(' ');
+    const half  = Math.ceil(words.length / 2);
+    const line1 = words.slice(0, half).join(' ');
+    const line2 = words.slice(half).join(' ');
+    heroTitle.innerHTML = `${line1} <span class="gradient-text">${line2.split(' ').slice(0,1).join(' ')}</span><br/>${line2.split(' ').slice(1).join(' ')}`;
+  }
+  const heroDesc = document.querySelector('.hero-desc');
+  if (heroDesc && settings.heroDesc) heroDesc.textContent = settings.heroDesc;
+
   /* ---- COUNTER ANIMATION ---- */
   function animateCounter(el) {
     const target = parseInt(el.dataset.count);

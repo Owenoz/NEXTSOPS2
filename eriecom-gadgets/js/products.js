@@ -1,7 +1,136 @@
 /* =============================================
-   ERIECOM GADGETS — PRODUCT DATA & MANAGEMENT
+   ERIECOM GADGETS — PRODUCT DATA & SITE SETTINGS
    ============================================= */
 
+/* ─── DEFAULT SITE SETTINGS ─────────────────── */
+const DEFAULT_SETTINGS = {
+  storeName: 'Eriecom Gadgets',
+  tagline: "Uganda's #1 Electronics Store",
+  whatsapp: '256740275104',
+  whatsappMessage: 'Hello Eriecom Gadgets, I would like to enquire about a product.',
+  email: 'Eriecom455@gmail.com',
+  phone1: '+256 740 275 104',
+  phone2: '+256 752 987 654',
+  address: 'Kampala Road, Opp. Game Store, Kampala, Uganda',
+  hoursWeekday: 'Mon – Sat: 8:00am – 8:00pm',
+  hoursWeekend: 'Sunday: 10:00am – 6:00pm',
+  heroTitle: 'Next-Gen Electronics Delivered to Your Door',
+  heroDesc: 'Discover the latest smartphones, laptops, audio gear and accessories. Genuine products, unbeatable prices — right here in Uganda.',
+  announcementBar: [
+    'Free delivery on orders above UGX 150,000 in Kampala',
+    '12-Month Warranty on All Products',
+    '24/7 Customer Support'
+  ],
+  freeDeliveryThreshold: 150000,
+  deliveryFee: 10000,
+  couponCode: 'ERIECOM10',
+  couponDiscount: 10,
+  socialFacebook: '#',
+  socialInstagram: '#',
+  socialTwitter: '#',
+  socialTiktok: '#',
+  footerAbout: "Uganda's leading electronics retailer. Bringing you the world's best tech with local expertise and service you can trust.",
+};
+
+/* ─── SETTINGS HELPERS ───────────────────────── */
+function loadSettings() {
+  try {
+    const stored = localStorage.getItem('eriecom_settings');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      return Object.assign({}, DEFAULT_SETTINGS, parsed);
+    }
+  } catch (e) {}
+  return Object.assign({}, DEFAULT_SETTINGS);
+}
+
+function saveSettings(settings) {
+  localStorage.setItem('eriecom_settings', JSON.stringify(settings));
+}
+
+function getSetting(key) {
+  return loadSettings()[key];
+}
+
+function getWhatsAppLink(message) {
+  const settings = loadSettings();
+  const msg = encodeURIComponent(message || settings.whatsappMessage);
+  return `https://wa.me/${settings.whatsapp}?text=${msg}`;
+}
+
+/* ─── APPLY SETTINGS TO PAGE ────────────────── */
+function applySettingsToPage() {
+  const s = loadSettings();
+
+  /* WhatsApp float buttons */
+  document.querySelectorAll('.whatsapp-float').forEach(el => {
+    el.href = getWhatsAppLink();
+  });
+
+  /* Announcement bar */
+  const annBar = document.querySelector('.announcement-inner');
+  if (annBar && s.announcementBar && s.announcementBar.length) {
+    const icons = ['fa-truck', 'fa-shield-alt', 'fa-headset'];
+    const doubled = [...s.announcementBar, ...s.announcementBar];
+    annBar.innerHTML = doubled.map((txt, i) =>
+      `<span><i class="fas ${icons[i % icons.length]}"></i> ${txt}</span>`
+    ).join('');
+  }
+
+  /* Support phone in announcement */
+  const annSpans = document.querySelectorAll('.announcement-inner span');
+  annSpans.forEach(span => {
+    if (span.textContent.includes('Support')) {
+      const icon = span.querySelector('i');
+      span.textContent = '';
+      if (icon) span.appendChild(icon);
+      span.append(` 24/7 Support: ${s.phone1}`);
+    }
+  });
+
+  /* Contact section */
+  const phoneEls = document.querySelectorAll('.contact-phone-display');
+  phoneEls.forEach(el => {
+    el.innerHTML = `${s.phone1}<br/>${s.phone2}`;
+  });
+  const emailEls = document.querySelectorAll('.contact-email-display');
+  emailEls.forEach(el => {
+    el.innerHTML = `<a href="mailto:${s.email}" style="color:inherit">${s.email}</a><br/><a href="mailto:support@eriecomgadgets.ug" style="color:inherit">support@eriecomgadgets.ug</a>`;
+  });
+  const addrEls = document.querySelectorAll('.contact-address-display');
+  addrEls.forEach(el => { el.innerHTML = s.address.replace(',', ',<br/>'); });
+  const hoursEls = document.querySelectorAll('.contact-hours-display');
+  hoursEls.forEach(el => { el.innerHTML = `${s.hoursWeekday}<br/>${s.hoursWeekend}`; });
+
+  /* Footer about */
+  const footerAboutEl = document.querySelector('.footer-about-text');
+  if (footerAboutEl) footerAboutEl.textContent = s.footerAbout;
+
+  /* Social links */
+  const socialLinks = document.querySelectorAll('.social-links a');
+  const socialMap = {
+    'fa-facebook-f': s.socialFacebook,
+    'fa-instagram': s.socialInstagram,
+    'fa-twitter': s.socialTwitter,
+    'fa-whatsapp': getWhatsAppLink(),
+    'fa-tiktok': s.socialTiktok,
+  };
+  socialLinks.forEach(link => {
+    const icon = link.querySelector('i');
+    if (!icon) return;
+    const classes = icon.className;
+    for (const [cls, href] of Object.entries(socialMap)) {
+      if (classes.includes(cls)) { link.href = href; break; }
+    }
+  });
+
+  /* Email links */
+  document.querySelectorAll('a[href^="mailto:Eriecom"], a[href^="mailto:info@"]').forEach(el => {
+    el.href = `mailto:${s.email}`;
+  });
+}
+
+/* ─── DEFAULT PRODUCTS ───────────────────────── */
 const DEFAULT_PRODUCTS = [
   // SMARTPHONES
   { id: 1, name: "Samsung Galaxy S24 Ultra", category: "phones", price: 4800000, oldPrice: 5500000, rating: 4.9, reviews: 312, badge: "hot", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500&q=80", desc: "200MP camera, Snapdragon 8 Gen 3, 5000mAh battery, S-Pen included.", featured: true, trending: true, stock: 15 },
@@ -38,6 +167,7 @@ const DEFAULT_PRODUCTS = [
   { id: 22, name: "Logitech MX Master 3S", category: "accessories", price: 280000, oldPrice: 320000, rating: 4.8, reviews: 312, badge: "sale", image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&q=80", desc: "8K DPI, silent clicks, 70-day battery, multi-device.", featured: false, trending: true, stock: 30 },
 ];
 
+/* ─── PRODUCT HELPERS ────────────────────────── */
 function loadProducts() {
   const stored = localStorage.getItem('eriecom_products');
   if (stored) {
@@ -103,8 +233,13 @@ function createProductCard(product, index = 0) {
 }
 
 function viewProduct(id) {
-  window.location.href = `pages/product.html?id=${id}`;
+  // Detect if we're in root or pages/ directory
+  const isRoot = !window.location.pathname.includes('/pages/');
+  window.location.href = isRoot ? `pages/product.html?id=${id}` : `product.html?id=${id}`;
 }
 
 // Initialize on load
 loadProducts();
+
+// Apply settings when DOM is ready
+document.addEventListener('DOMContentLoaded', applySettingsToPage);

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard — Eriecom Gadgets</title>
   <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/png" href="../assets/images/logo.png" />
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/animations.css" />
   <link rel="stylesheet" href="../css/admin.css" />
@@ -22,12 +23,8 @@
   <!-- ===== SIDEBAR ===== -->
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="admin-sidebar-logo">
-      <a href="../index.html" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <div class="logo-icon"><i class="fas fa-bolt"></i></div>
-        <div class="logo-text">
-          <span class="logo-main">ERIECOM</span>
-          <span class="logo-sub">GADGETS</span>
-        </div>
+      <a href="../index.html" target="_blank" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="../assets/images/logo.png" alt="Eriecom Gadgets" style="height:48px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(108,59,255,0.35))" />
       </a>
     </div>
 
@@ -56,6 +53,12 @@
         <i class="fas fa-shopping-cart"></i>
         <span>Orders</span>
         <span class="nav-badge nav-badge-accent">Soon</span>
+      </a>
+
+      <div class="nav-section-label">Configuration</div>
+      <a class="admin-nav-link" id="nav-settings" onclick="showPanel('settings')">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
       </a>
 
       <div class="nav-section-label">Links</div>
@@ -228,9 +231,20 @@
           <span class="img-preview-label"><i class="fas fa-check-circle"></i> Image loaded</span>
         </div>
         <p class="field-hint" style="margin-top:6px">
-          Use <a href="https://unsplash.com" target="_blank" style="color:var(--primary-light)">Unsplash</a> or
-          <a href="https://images.google.com" target="_blank" style="color:var(--primary-light)">Google Images</a> for free product photos.
+          Paste an image URL, or upload from your device below.
         </p>
+      </div>
+      <div class="admin-form-group">
+        <label class="admin-form-label">Upload Image from Device <span class="optional">optional — max 2MB</span></label>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <label style="display:inline-flex;align-items:center;gap:8px;background:rgba(108,59,255,0.12);border:1px solid rgba(108,59,255,0.3);color:var(--primary-light);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition)"
+            onmouseover="this.style.background='var(--primary)';this.style.color='#fff'"
+            onmouseout="this.style.background='rgba(108,59,255,0.12)';this.style.color='var(--primary-light)'">
+            <i class="fas fa-upload"></i> Choose Image
+            <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(this)" />
+          </label>
+          <span style="font-size:12px;color:var(--text-muted)">Supported: JPG, PNG, WebP, GIF</span>
+        </div>
       </div>
 
       <div class="form-section-divider">Visibility</div>
