@@ -82,27 +82,6 @@
         </button>
       </form>
 
-      <div class="login-divider"><span>Demo credentials</span></div>
-
-      <div class="login-demo-creds">
-        <div class="cred-row" onclick="fillCreds('admin','eriecom2025')">
-          <div class="cred-icon"><i class="fas fa-crown"></i></div>
-          <div>
-            <strong>Super Admin</strong>
-            <span>admin / eriecom2025</span>
-          </div>
-          <i class="fas fa-arrow-right cred-arrow"></i>
-        </div>
-        <div class="cred-row" onclick="fillCreds('eriecom','gadgets2025')">
-          <div class="cred-icon" style="background:rgba(0,212,170,0.1);color:var(--accent2)"><i class="fas fa-user-tie"></i></div>
-          <div>
-            <strong>Store Manager</strong>
-            <span>eriecom / gadgets2025</span>
-          </div>
-          <i class="fas fa-arrow-right cred-arrow"></i>
-        </div>
-      </div>
-
       <a href="../index.html" class="login-back">
         <i class="fas fa-arrow-left"></i> Back to Store
       </a>
@@ -151,15 +130,6 @@
 <script src="../js/products.js"></script>
 <script src="../js/cart.js"></script>
 <script src="../js/admin-auth.js"></script>
-<script>
-  // Quick-fill demo creds
-  function fillCreds(u, p) {
-    document.getElementById('adminUsername').value = u;
-    document.getElementById('adminPassword').value = p;
-    document.getElementById('adminUsername').closest('.login-field').classList.add('filled');
-    document.getElementById('adminPassword').closest('.login-field').classList.add('filled');
-    showToast('<i class="fas fa-bolt" style="color:var(--primary-light)"></i> Credentials filled — click Sign In', '');
-  }
-</script>
+
 </body>
 </html>

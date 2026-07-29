@@ -245,14 +245,112 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
   }
 
-  function renderSuccess(orderNum) {
+  /* ---- MOBILE MONEY PAYMENT INSTRUCTIONS ---- */
+  function renderPaymentInstructions(orderNum, total, method, customerData) {
     const layout = document.getElementById('cartLayout');
+    const MOMO_NUMBER = '0740275104';
+    const isMTN = method === 'mtn';
+    const networkName  = isMTN ? 'MTN Mobile Money' : 'Airtel Money';
+    const networkColor = isMTN ? '#ffcb05' : '#ef3e23';
+    const networkIcon  = 'fas fa-mobile-alt';
+
+    const mtnSteps = `
+      <ol class="momo-steps">
+        <li>Dial <strong>*165*3#</strong> on your MTN line</li>
+        <li>Select <strong>"Transfer Money"</strong></li>
+        <li>Enter number: <strong>${MOMO_NUMBER}</strong></li>
+        <li>Enter amount: <strong>${formatUGX(total)}</strong></li>
+        <li>Use reference: <strong>${orderNum}</strong></li>
+        <li>Enter your MTN MoMo PIN to confirm</li>
+      </ol>`;
+
+    const airtelSteps = `
+      <ol class="momo-steps">
+        <li>Dial <strong>*185*9#</strong> on your Airtel line</li>
+        <li>Select <strong>"Send Money"</strong></li>
+        <li>Enter number: <strong>${MOMO_NUMBER}</strong></li>
+        <li>Enter amount: <strong>${formatUGX(total)}</strong></li>
+        <li>Use reference: <strong>${orderNum}</strong></li>
+        <li>Enter your Airtel Money PIN to confirm</li>
+      </ol>`;
+
+    layout.innerHTML = `
+      <div class="order-success active" style="grid-column:1/-1;max-width:600px;margin:0 auto;width:100%;">
+
+        <div class="momo-header" style="margin-bottom:8px;">
+          <div class="momo-network-badge" style="background:${networkColor}20;border:2px solid ${networkColor};color:${networkColor};border-radius:50px;display:inline-flex;align-items:center;gap:8px;padding:8px 20px;font-weight:700;font-size:15px;margin-bottom:16px;">
+            <i class="${networkIcon}"></i> ${networkName}
+          </div>
+          <h2 style="margin-bottom:6px;">Complete Your Payment</h2>
+          <div class="order-num"><i class="fas fa-tag"></i> Order #${orderNum}</div>
+        </div>
+
+        <div class="momo-amount-box" style="background:var(--card-bg);border:2px solid ${networkColor};border-radius:16px;padding:20px 24px;margin:20px 0;text-align:center;">
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">Amount to Send</div>
+          <div style="font-size:32px;font-weight:800;color:#fff;letter-spacing:-1px;">${formatUGX(total)}</div>
+          <div style="margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px;">
+            <div style="font-size:13px;color:var(--text-muted);">Send to number</div>
+            <div class="momo-number-copy" id="momoNumberDisplay"
+              style="font-size:22px;font-weight:800;color:${networkColor};letter-spacing:2px;cursor:pointer;display:flex;align-items:center;gap:8px;"
+              onclick="copyMomoNumber()"
+              title="Click to copy">
+              ${MOMO_NUMBER}
+              <i class="fas fa-copy" style="font-size:16px;opacity:0.7;"></i>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Account name: <strong style="color:#fff;">Eriecom Gadgets</strong></div>
+        </div>
+
+        <div class="momo-steps-card" style="background:var(--card-bg);border-radius:14px;padding:20px 24px;margin-bottom:20px;text-align:left;">
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-list-ol" style="color:${networkColor}"></i> How to Pay
+          </div>
+          ${isMTN ? mtnSteps : airtelSteps}
+        </div>
+
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:12px 16px;margin-bottom:24px;font-size:13px;color:var(--text-muted);text-align:left;">
+          <i class="fas fa-info-circle" style="color:#f59e0b;margin-right:6px;"></i>
+          Always use <strong style="color:#fff;">${orderNum}</strong> as your payment reference so we can match your order quickly.
+        </div>
+
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="confirmPaymentDone('${orderNum}','${method}')"
+            style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--font);">
+            <i class="fas fa-check-circle"></i> I've Sent the Payment
+          </button>
+          <button onclick="backToCheckout()"
+            style="background:none;border:1px solid var(--border);color:var(--text-muted);padding:14px 20px;border-radius:10px;font-size:14px;cursor:pointer;font-family:var(--font);">
+            <i class="fas fa-arrow-left"></i> Go Back
+          </button>
+        </div>
+      </div>`;
+
+    // inject step styles if not already present
+    if (!document.getElementById('momoStyles')) {
+      const style = document.createElement('style');
+      style.id = 'momoStyles';
+      style.textContent = `
+        .momo-steps { padding-left: 20px; margin: 0; }
+        .momo-steps li { color: var(--text-muted); font-size: 14px; margin-bottom: 10px; line-height: 1.5; }
+        .momo-steps li strong { color: #fff; }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+
+  function renderSuccess(orderNum, method) {
+    const layout = document.getElementById('cartLayout');
+    const isPaid = method === 'mtn' || method === 'airtel';
+    const paymentNote = isPaid
+      ? `Your Mobile Money payment is being verified. Our team will confirm your order once payment reflects.<br/><br/>Keep your reference <strong>${orderNum}</strong> handy.`
+      : `Your order has been received and our team will contact you shortly to confirm delivery details.<br/><br/>You'll receive a confirmation SMS on the number provided.`;
+
     layout.innerHTML = `
       <div class="order-success active" style="grid-column:1/-1">
         <div class="success-icon"><i class="fas fa-check"></i></div>
         <h2>Order Placed Successfully!</h2>
         <div class="order-num"><i class="fas fa-tag"></i> Order #${orderNum}</div>
-        <p>Thank you for shopping with Eriecom Gadgets! Your order has been received and our team will contact you shortly to confirm delivery details.<br/><br/>You'll receive a confirmation SMS on the number provided.</p>
+        <p>Thank you for shopping with Eriecom Gadgets! ${paymentNote}</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
           <a href="shop.html" class="btn-primary"><i class="fas fa-store"></i> Continue Shopping</a>
           <a href="../index.html" class="btn-secondary">Back to Home</a>
@@ -305,16 +403,52 @@ document.addEventListener('DOMContentLoaded', () => {
     el.classList.add('selected');
   };
   window.placeOrder = () => {
-    const first = document.getElementById('firstName')?.value.trim();
-    const phone = document.getElementById('phone')?.value.trim();
+    const first    = document.getElementById('firstName')?.value.trim();
+    const phone    = document.getElementById('phone')?.value.trim();
     const district = document.getElementById('district')?.value;
-    const area = document.getElementById('area')?.value.trim();
+    const area     = document.getElementById('area')?.value.trim();
     if (!first || !phone || !district || !area) {
       showToast('<i class="fas fa-exclamation-circle" style="color:var(--error)"></i> Please fill in all required fields.', 'error');
       return;
     }
+
+    const method = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
     const orderNum = 'ERG-' + Date.now().toString().slice(-6);
-    setTimeout(() => { renderSuccess(orderNum); }, 400);
+
+    const subtotal = getCartTotal();
+    const delivery = subtotal >= KAMPALA_FREE_THRESHOLD ? 0 : DELIVERY_FEE;
+    const discount = couponApplied ? couponDiscount : 0;
+    const total    = subtotal - discount + delivery;
+
+    const customerData = { first, phone, district, area };
+
+    if (method === 'mtn' || method === 'airtel') {
+      // Show mobile money payment instructions
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      renderPaymentInstructions(orderNum, total, method, customerData);
+    } else {
+      // COD or card — go straight to success
+      setTimeout(() => { renderSuccess(orderNum, method); }, 400);
+    }
+  };
+
+  window.confirmPaymentDone = (orderNum, method) => {
+    showToast('<i class="fas fa-check-circle" style="color:var(--success)"></i> Payment received! Confirming your order...', 'success');
+    setTimeout(() => { renderSuccess(orderNum, method); }, 1200);
+  };
+
+  window.backToCheckout = () => {
+    currentView = 'checkout';
+    renderCheckout();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.copyMomoNumber = () => {
+    navigator.clipboard.writeText('0740275104').then(() => {
+      showToast('<i class="fas fa-copy" style="color:var(--primary-light)"></i> Number copied to clipboard!', '');
+    }).catch(() => {
+      showToast('Number: 0740275104', '');
+    });
   };
 
   // Navbar
